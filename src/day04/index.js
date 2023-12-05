@@ -22,7 +22,7 @@ const part1 = (rawInput) => {
 
 const part2 = (rawInput) => {
   const input = parseInput(rawInput)
-  const winnerCards = {}
+  const winnerCards = []
 
   input.map((line, cardIdx) => {
     const [cardNum, scratchCard] = line.replaceAll('  ', ' ').split(':')
@@ -34,13 +34,26 @@ const part2 = (rawInput) => {
       if (numbers.indexOf(wNum) != -1)
         wins++;
     })
-    winnerCards[cardIdx + 1] = wins
+    winnerCards.push(wins)
   })
-  const totCards = { ...winnerCards }
-  // Object.keys(totCards).map()
-  console.log(winnerCards);
-  return
+
+  const totCards = [...winnerCards]
+  let totNumberCards = winnerCards.length;
+
+  const cycleCards = (startIdx, cards) => {
+    cards.map((wins, idx) => {
+      const actualIndex = startIdx + 1 + idx;
+      if (wins > 0) {
+        let addedCards = winnerCards.slice(actualIndex, actualIndex + wins)
+        totNumberCards += addedCards.length
+        cycleCards(actualIndex, addedCards)
+      }
+    })
+  }
+  cycleCards(0, totCards)
+  return totNumberCards
 }
+
 
 run({
   part1: {
@@ -66,11 +79,11 @@ Card 3:  1 21 53 59 44 | 69 82 63 72 16 21 14  1
 Card 4: 41 92 73 84 69 | 59 84 76 51 58  5 54 83
 Card 5: 87 83 26 28 32 | 88 30 70 12 93 22 82 36
 Card 6: 31 18 13 56 72 | 74 77 10 23 35 67 36 11`,
-        expected: "30",
+        expected: 30,
       },
     ],
     solution: part2,
   },
   trimTestInputs: true,
-  onlyTests: true,
+  onlyTests: false,
 })
