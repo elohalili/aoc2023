@@ -64,9 +64,11 @@
     {
       "part1": {
         "solved": false,
-        "result": null,
-        "attempts": [],
-        "time": null
+        "result": "1191329316",
+        "attempts": [
+          "1191329316"
+        ],
+        "time": 0.29725
       },
       "part2": {
         "solved": false,
