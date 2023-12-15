@@ -1,10 +1,7 @@
 import run from "aocrunner"
 
-const parseInput = (rawInput) => rawInput.split('\n\n')
-
-const part1 = (rawInput) => {
-  const input = parseInput(rawInput)
-  let [seeds, ...category] = input
+const parseInput = (rawInput) => {
+  let [seeds, ...category] = rawInput.split('\n\n')
   seeds = seeds.split(':')[1].trim().split(' ').map(e => ({
     seed: Number(e),
     lastChange: null
@@ -14,9 +11,11 @@ const part1 = (rawInput) => {
     values = values.split('\n')
     return values.map(l => l.split(' ').map(e => Number(e)))
   })
+  return [seeds, category]
+}
 
-  console.log(seeds);
-  console.log(category.length);
+const part1 = (rawInput) => {
+  let [seeds, category] = parseInput(rawInput)
 
   category.forEach((map, mapIdx) => {
     map.forEach(line => {
