@@ -15,8 +15,8 @@ const part1 = (rawInput) => {
     return values.map(l => l.split(' ').map(e => Number(e)))
   })
 
-  // console.log(seeds);
-  console.table(category.length);
+  console.log(seeds);
+  console.log(category.length);
 
   category.forEach((map, mapIdx) => {
     map.forEach(line => {
@@ -31,7 +31,7 @@ const part1 = (rawInput) => {
       })
     })
   });
-  return seeds.map(e => e.seed).sort()[0]
+  return seeds.map(e => e.seed).sort((a, b) => a - b)[0]
 }
 
 const part2 = (rawInput) => {
